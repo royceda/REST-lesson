@@ -51,64 +51,45 @@ def get_flight(id):
 
 
 def create_flight(op_nb, ori, dst):
-    cnx = mysql.connector.connect(user='scott', database='employees')
-    cursor = cnx.cursor()
-
-    tomorrow = datetime.now().date() + timedelta(days=1)
+    conn = sqlite3.connect('test.db')
+    cursor = conn.cursor()
 
     add_flight = ("INSERT INTO flight "
                 "(op_nb, origin, destination) "
-                "VALUES (%s, %s, %s)")
+                "VALUES ('"+op_nb+"', '"+ori+"', '"+dst+"')")
 
-    data_flight = ('AF1000', 'CDG', 'MAD')
+    data_flight = (op_nb, ori, dst)
 
-    # Insert new employee
-    cursor.execute(add_flight, data_flight)
-    flt_no = cursor.lastrowid
-
-    # Insert salary information
-    data_salary = {
-        'op_nb': flt_no,
-        'origin': ori,
-        'destination': dst
-    }
-    cursor.execute(add_flight, data_flight)
+    # Insert new flight
+    cursor.execute(add_flight)
 
     # Make sure data is committed to the database
-    cnx.commit()
+    conn.commit()
     cursor.close()
-    cnx.close()
+    conn.close()
+    return "ok"
 
 
 
 
 
 def edit_flight(op_nb, ori, dst):
-    cnx = mysql.connector.connect(user='scott', database='employees')
-    cursor = cnx.cursor()
-    #tomorrow = datetime.now().date() + timedelta(days=1)
+    conn = sqlite3.connect('test.db')
+    cursor = conn.cursor()
 
-    add_flight = ("UPDATE flight "
-                "(op_nb, origin, destination) "
-                "WHERE op_nb = (%s)"
-                "SET ori = %s, dst = %s")
+    print(op_nb , ori, dst)
 
-    data_flight = ('AF1000', 'CDG', 'MAD')
-    #data_flight = (op_nb, ori, dst)
+    sql = ''' UPDATE flight
+              SET origin = ? ,
+                  destination = ? 
+              WHERE op_nb = ?'''
 
-    # Insert new employee
-    cursor.execute(add_flight, data_flight)
-    flt_no = cursor.lastrowid
 
-    # Insert salary information
-    data_flight = {
-        'op_nb': flt_no,
-        'origin': ori,
-        'destination': dst
-    }
-    cursor.execute(add_flight, data_flight)
+    # Insert new flight
+    cursor.execute(sql, (ori, dst, op_nb))
 
     # Make sure data is committed to the database
-    cnx.commit()
+    conn.commit()
     cursor.close()
-    cnx.close()
+    conn.close()
+    return "ok"

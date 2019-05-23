@@ -40,7 +40,7 @@ def flight(op_nb):
         data = request.get_json();
         print(op_nb)
         print(data['ori'])
-        #flt = create_flight()
+        flt = create_flight(data['op_nb'], data['ori'], data['dst'])
         response = app.response_class(
             response = json.dumps(
                 {
@@ -56,7 +56,7 @@ def flight(op_nb):
         data = request.get_json();
         print(op_nb)
         print(data['ori'])
-        #edit_flight(data['op_nb'], data['ori'], data['dst'])
+        edit_flight(data['op_nb'], data['ori'], data['dst'])
         response = app.response_class(
             response = json.dumps(
                 {
