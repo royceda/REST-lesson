@@ -11,24 +11,12 @@ import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 })
 export class MapComponent  {
   // google maps zoom level
-  zoom: number = 9;
+  zoom: number = 5;
   
   // initial center position for the map
-  lat: number = 51.673858;
-  lng: number = 7.815982;
+  lat: number = 49.0083899664;
+  lng: number = 2.5384411;
 
-  polylines: Array<any> = [      
-    {
-    latitude:  39.8282,
-    longitude: -98.5795,
-    speed: 50
-    },
-    {
-    latitude:  38.8282,
-    longitude: -108.5795,
-    speed: 50
-    }
-  ]
 
   constructor(    
     private mapsAPILoader: MapsAPILoader,
@@ -38,44 +26,49 @@ export class MapComponent  {
     console.log(`clicked the marker: ${label || index}`)
   }
   
-  mapClicked($event: MouseEvent) {
+  /*mapClicked($event: MouseEvent) {
     this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: true
     });
-  }
+  }*/
   
   markerDragEnd(m: marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
 
-  markers: marker[] = [
-	  {
-		  lat: 51.673858,
-		  lng: 7.815982,
-		  label: 'A',
-		  draggable: true
-	  },
-	  {
-		  lat: 51.373858,
-		  lng: 7.215982,
-		  label: 'B',
-		  draggable: false
-	  },
-	  {
-		  lat: 51.723858,
-		  lng: 7.895982,
-		  label: 'C',
-		  draggable: true
-	  }
+  flights: flight[] = [
+    {
+      op_nb : "AF1000",
+      origin : "CDG",
+      destination : "MAD",
+      ori_lat : 49.0083899664,
+      ori_lng : 2.5384411,
+      dst_lat : 40.4839361 ,
+      dst_lng : -3.5679515
+    },
+    {
+      op_nb : "AF8260",
+      origin : "TLS",
+      destination : "AMS",
+      ori_lat : 43.634330796,
+      ori_lng : 1.367331864,
+      dst_lat : 52.3105386,
+      dst_lng : 4.7682744
+    }
   ]
 }
 
-// just an interface for type safety.
-interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
-	draggable: boolean;
+
+
+
+export interface flight {
+  op_nb : string;
+  origin : string;
+  destination : string;
+  ori_lat : number,
+  ori_lng : number;
+  dst_lat : number;
+  dst_lng : number;
 }

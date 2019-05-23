@@ -1,40 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-
-
-interface Country {
-  name: string;
-  flag: string;
-  area: number;
-  population: number;
-}
-
-const COUNTRIES: Country[] = [
-  {
-    name: 'Russia',
-    flag: 'f/f3/Flag_of_Russia.svg',
-    area: 17075200,
-    population: 146989754
-  },
-  {
-    name: 'Canada',
-    flag: 'c/cf/Flag_of_Canada.svg',
-    area: 9976140,
-    population: 36624199
-  },
-  {
-    name: 'United States',
-    flag: 'a/a4/Flag_of_the_United_States.svg',
-    area: 9629091,
-    population: 324459463
-  },
-  {
-    name: 'China',
-    flag: 'f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
-    area: 9596960,
-    population: 1409517397
-  }
-];
+import { flight } from '../map/map.component'
 
 
 
@@ -45,7 +10,27 @@ const COUNTRIES: Country[] = [
 })
 export class TableComponent implements OnInit {
 
-  countries = COUNTRIES;
+  
+  flights: flight[] = [
+    {
+      op_nb : "AF1000",
+      origin : "CDG",
+      destination : "MAD",
+      ori_lat : 43,
+      ori_lng : 21,
+      dst_lat : 23,
+      dst_lng : 40
+    },
+    {
+      op_nb : "AF1001",
+      origin : "CDG",
+      destination : "AJA",
+      ori_lat : 51.673858,
+      ori_lng : 7.815982,
+      dst_lat : 51.723858,
+      dst_lng : 7.895982
+    }
+  ]
 
   constructor() { }
 
