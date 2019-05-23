@@ -1,40 +1,52 @@
 from __future__ import print_function
 from datetime import date, datetime, timedelta
-import mysql.connector
+import sqlite3
+
+
 
 
 def flights():
-    cnx = mysql.connector.connect(user='root', password='root', database='flight')
-    cursor = cnx.cursor()
+    conn = sqlite3.connect('test.db')
+    cursor = conn.cursor()
 
     query = ("SELECT op_nb, origin, destination FROM flight ")
     cursor.execute(query)
 
     arr = []
     for (op_nb, origin, destination) in cursor:
-        arr.append((op_nb, origin, destination))
+        tmp = {
+            "op_nb" : op_nb,
+            "origin" : origin,
+            "destination" : destination 
+        }
+        arr.append(tmp)
     print(arr)
 
     cursor.close()
-    cnx.close()
+    conn.close()
     return arr
 
 
 
 
-def flight(op_nb):
-    cnx = mysql.connector.connect(user='root', password='root', database='flight')
-    cursor = cnx.cursor()
+def get_flight(id):
+    conn = sqlite3.connect('test.db')
+    cursor = conn.cursor()
 
-    query = ("SELECT op_nb, origin, destination FROM flight WHERE op_nb = %s")
-    cursor.execute(query, (op_nb))
+    query = ("SELECT op_nb, origin, destination FROM flight WHERE op_nb = '"+id+"'")
+    cursor.execute(query)
+    arr = []
 
-    for (first_name, last_name, hire_date) in cursor:
-        print("{}, {} was hired on {:%d %b %Y}".format(
-            last_name, first_name, hire_date))
-
+    for (op_nb, origin, destination) in cursor:
+        tmp = {
+            "op_nb" : op_nb,
+            "origin" : origin,
+            "destination" : destination 
+        }
+        arr.append(tmp)
     cursor.close()
-    cnx.close()
+    conn.close()
+    return arr
 
 
 

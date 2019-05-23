@@ -1,5 +1,5 @@
 from flask import request, Flask, make_response, json
-from services import flights, edit_flight, create_flight
+from services import flights, edit_flight, create_flight, get_flight
 #import json
 
 app = Flask(__name__)
@@ -12,18 +12,24 @@ def hello():
 
 @app.route('/flights')
 def get_flights():
-    #flights = flights()
-    print("get list of flight")
-    return "Flights"
+    flt = flights()
+    response = app.response_class(
+        response = json.dumps(flt),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 
 @app.route('/flight/<string:op_nb>', methods=["GET", "POST", "DELETE", "PUT"])
 def flight(op_nb):
+    
     if request.method == "GET":
         # Get The flight
-        flt = flight(op_nb);
+        print(op_nb)
+        flt = get_flight(op_nb);
         response = app.response_class(
-            response = json.dumps(),
+            response = json.dumps(flt),
             status=200,
             mimetype='application/json'
         )
