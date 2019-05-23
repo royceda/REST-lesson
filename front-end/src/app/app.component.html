@@ -1,4 +1,30 @@
-<app-map></app-map>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">Navbar</a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+<hr/>
+
+
+<ngb-tabset #t="ngbTabset">
+    <ngb-tab id="tab-selectbyid1" title="Simple">
+        <ng-template ngbTabContent>
+            <app-table></app-table>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab id="tab-selectbyid2">
+        <ng-template ngbTabTitle><b>Map</b> legs</ng-template>
+        <ng-template ngbTabContent>
+            <app-map></app-map>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>
+
+
+
 
 
 <p>
