@@ -41,10 +41,28 @@ export class MapComponent  {
 
   constructor(private data: DataService) { 
     this.data.getFlights().subscribe(data => {
-      //this.flights = data as flight[];
+      this.flights = data as flight[];
       console.log("Response : ", data);
+
+
       this.data.getAirports().subscribe(world_data => {
         console.log("Response : ", world_data);
+
+        let arr = Object.values(world_data);
+        console.log("arr : ", arr);
+
+        for(let flt of this.flights){
+          let ori_coord = world_data.find(x => x.iata_code === flt.origin);
+          flt.ori_lat = ori_coord.latitude_deg
+          flt.ori_lng = ori_coord.longitude_deg
+         
+
+          let dst_coord = world_data.find(x => x.iata_code === flt.destination);
+          flt.dst_lat = dst_coord.latitude_deg
+          flt.dst_lng = dst_coord.longitude_deg
+          console.log("dst_coord ", dst_coord)
+        }
+        
       });
     });
   }
