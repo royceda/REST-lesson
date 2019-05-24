@@ -52,12 +52,12 @@ export class MapComponent  {
         console.log("arr : ", arr);
 
         for(let flt of this.flights){
-          let ori_coord = world_data.find(x => x.iata_code === flt.origin);
+          let ori_coord = arr.find(x => x.iata_code === flt.origin);
           flt.ori_lat = ori_coord.latitude_deg
           flt.ori_lng = ori_coord.longitude_deg
          
 
-          let dst_coord = world_data.find(x => x.iata_code === flt.destination);
+          let dst_coord = arr.find(x => x.iata_code === flt.destination);
           flt.dst_lat = dst_coord.latitude_deg
           flt.dst_lng = dst_coord.longitude_deg
           console.log("dst_coord ", dst_coord)

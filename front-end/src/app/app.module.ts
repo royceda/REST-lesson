@@ -23,7 +23,7 @@ import { TableComponent } from './table/table.component';
     NgbModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBURM95bcFJd0qYA8BBrROv-ICalgLqg7Q'
+      apiKey: 'AIzaSyBBrSAhlb5RHcUe82IhM90hL06Me-3WRd0'
     })
   ],
   providers: [],
