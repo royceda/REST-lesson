@@ -1,9 +1,12 @@
 from flask import request, Flask, make_response, json
 from services import flights, edit_flight, create_flight, get_flight
+from flask_cors import CORS, cross_origin
+
 #import json
 
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def hello():
@@ -11,6 +14,7 @@ def hello():
 
 
 @app.route('/flights')
+@cross_origin()
 def get_flights():
     flt = flights()
     response = app.response_class(

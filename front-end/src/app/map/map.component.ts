@@ -3,6 +3,7 @@ import { MouseEvent } from '@agm/core';
 
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 
+import { DataService } from '../data.service'
 
 @Component({
   selector: 'app-map',
@@ -16,27 +17,6 @@ export class MapComponent  {
   // initial center position for the map
   lat: number = 49.0083899664;
   lng: number = 2.5384411;
-
-
-  constructor(    
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone){}
-
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
-  }
-  
-  /*mapClicked($event: MouseEvent) {
-    this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng,
-      draggable: true
-    });
-  }*/
-  
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
 
   flights: flight[] = [
     {
@@ -58,6 +38,35 @@ export class MapComponent  {
       dst_lng : 4.7682744
     }
   ]
+
+  constructor(private data: DataService) { 
+    this.data.getFlights().subscribe(data => {
+      //this.flights = data as flight[];
+      console.log("Response : ", data);
+      this.data.getAirports().subscribe(world_data => {
+        console.log("Response : ", world_data);
+      });
+    });
+  }
+
+  clickedMarker(label: string, index: number) {
+    console.log(`clicked the marker: ${label || index}`)
+  }
+  
+  /*mapClicked($event: MouseEvent) {
+    this.markers.push({
+      lat: $event.coords.lat,
+      lng: $event.coords.lng,
+      draggable: true
+    });
+  }*/
+  
+  //m is a marker
+  markerDragEnd(m: any, $event: MouseEvent) {
+    console.log('dragEnd', m, $event);
+  }
+
+
 }
 
 

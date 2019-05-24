@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { flight } from '../map/map.component'
 
-
+import { DataService } from '../data.service'
 
 @Component({
   selector: 'app-table',
@@ -32,7 +32,12 @@ export class TableComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private data: DataService) { 
+    this.data.getFlights().subscribe(data => {
+      this.flights = data as flight[];
+      console.log("Response : ", this.flights);
+    });
+  }
 
   ngOnInit() {
   }
