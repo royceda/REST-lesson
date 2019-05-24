@@ -1,4 +1,4 @@
 __pycache__
-.ipynb_checkpoints
-services.pyc
+./back-end/ipynb_checkpoints
+./back-end/services.pyc
 front-end/node_modules
